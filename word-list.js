@@ -1,246 +1,192 @@
 const wordList = [
+    // FOOD
     {
-        word: "penguin",
-        hint: "A flightless bird that loves the cold."
+        word: "Egg",
+        hint: "A round or oval object laid by a hen, often eaten fried or boiled.",
+        category: "food"
+    },
+    {
+        word: "Ham",
+        hint: "A type of meat that comes from the back leg of a pig, usually cured or smoked.",
+        category: "food"
+    },
+    {
+        word: "Pie",
+        hint: "A baked dish consisting of a crust with a sweet or savory filling inside.",
+        category: "food"
+    },
+    {
+        word: "Bun",
+        hint: "A small, round, sweet or plain bread roll, often used for burgers or sandwiches.",
+        category: "food"
+    },
+    {
+        word: "Jam",
+        hint: "A thick, sweet spread made by boiling fruit with sugar.",
+        category: "food"
+    },
+    {
+        word: "Tea",
+        hint: "A hot or cold drink made by soaking dried leaves in water.",
+        category: "food"
+    },
+    {
+        word: "Soy",
+        hint: "A type of bean used to make milk, sauce, or tofu.",
+        category: "food"
+    },
+    {
+        word: "Oat",
+        hint: "A type of grain often used to make porridge or healthy breakfast bars.",
+        category: "food"
+    },
+    {
+        word: "Pea",
+        hint: "A small, round, green vegetable that grows in a pod.",
+        category: "food"
     },
     {
         word: "banana",
-        hint: "A yellow fruit that monkeys love."
+        hint: "A yellow fruit that monkeys love.",
+        category: "food"
     },
     {
         word: "bubblegum",
-        hint: "Chewy and pink, fun to blow into bubbles."
-    },
-    {
-        word: "sunny",
-        hint: "The weather when the sky is clear and bright."
-    },
-    {
-        word: "giggles",
-        hint: "The sound of uncontrollable laughter."
+        hint: "Chewy and pink, fun to blow into bubbles.",
+        category: "food"
     },
     {
         word: "jellybean",
-        hint: "A small, sweet, and colorful candy."
-    },
-    {
-        word: "robot",
-        hint: "A mechanical friend that follows commands."
-    },
-    {
-        word: "superhero",
-        hint: "A fictional character with extraordinary powers."
+        hint: "A small, sweet, and colorful candy.",
+        category: "food"
     },
     {
         word: "cupcake",
-        hint: "A small, delicious cake often topped with frosting."
-    },
-    {
-        word: "laughter",
-        hint: "The joyful sound of amusement."
-    },
-    {
-        word: "kite",
-        hint: "A flying toy attached to a string."
-    },
-    {
-        word: "snuggle",
-        hint: "To embrace closely for warmth or affection."
-    },
-    {
-        word: "sparkle",
-        hint: "Shining with small, bright flashes of light."
+        hint: "A small, delicious cake often topped with frosting.",
+        category: "food"
     },
     {
         word: "gummybear",
-        hint: "A chewy, fruity treat shaped like a bear."
+        hint: "A chewy, fruity treat shaped like a bear.",
+        category: "food"
     },
     {
-        word: "cozy",
-        hint: "Warm and comfortable, like a blanket."
+        word: "muffin",
+        hint: "A small, sweet bread often with fruit or nuts.",
+        category: "food"
     },
     {
-        word: "whistle",
-        hint: "A small device that makes a high-pitched sound."
+        word: "lollipop",
+        hint: "A sweet candy on a stick, often brightly colored.",
+        category: "food"
     },
+    {
+        word: "sprinkle",
+        hint: "Tiny bits of candy or decoration.",
+        category: "food"
+    },
+    {
+        word: "cookie",
+        hint: "A sweet baked treat, often chocolate chip.",
+        category: "food"
+    },
+    {
+        word: "pizza",
+        hint: "A savory dish with crust, sauce, and toppings.",
+        category: "food"
+    },
+    
+    // SPORT
     {
         word: "bounce",
-        hint: "To spring back after hitting a surface."
+        hint: "To spring back after hitting a surface.",
+        category: "sport"
     },
     {
-        word: "puzzle",
-        hint: "A game or challenge to test your brain."
+        word: "kite",
+        hint: "A flying toy attached to a string.",
+        category: "sport"
+    },
+    {
+        word: "playground",
+        hint: "An outdoor area with equipment for children to play on.",
+        category: "sport"
+    },
+    {
+        word: "baseball",
+        hint: "A team sport played with a bat and ball.",
+        category: "sport"
+    },
+    {
+        word: "swimming",
+        hint: "Moving through water using arms and legs.",
+        category: "sport"
+    },
+    {
+        word: "soccer",
+        hint: "A team sport played with a round ball without hands.",
+        category: "sport"
+    },
+    {
+        word: "tennis",
+        hint: "A racket sport played on a court.",
+        category: "sport"
+    },
+    {
+        word: "cycling",
+        hint: "Riding a bicycle for exercise or transport.",
+        category: "sport"
+    },
+    
+    // ANIMAL
+    {
+        word: "penguin",
+        hint: "A flightless bird that loves the cold.",
+        category: "animal"
     },
     {
         word: "firefly",
-        hint: "A tiny insect that glows in the dark."
-    },
-    {
-        word: "campfire",
-        hint: "A warm, outdoor fire for cooking or gathering."
-    },
-    {
-        word: "wizard",
-        hint: "A magical person with special powers."
-    },
-    {
-        word: "daisy",
-        hint: "A simple and cheerful white flower."
-    },
-    {
-        word: "jungle",
-        hint: "A dense, tropical forest full of wildlife."
-    },
-    {
-        word: "muffin",
-        hint: "A small, sweet bread often with fruit or nuts."
-    },
-    {
-        word: "pillow",
-        hint: "Soft and fluffy for resting your head."
-    },
-    {
-        word: "robot",
-        hint: "A mechanical friend that follows commands."
-    },
-    {
-        word: "starry",
-        hint: "Filled with bright and shining stars."
-    },
-    {
-        word: "wizard",
-        hint: "A magical person with special powers."
-    },
-    {
-        word: "playful",
-        hint: "Full of fun and lively activity."
-    },
-    {
-        word: "magic",
-        hint: "Mysterious and enchanting supernatural forces."
-    },
-    {
-        word: "giggle",
-        hint: "A light, happy laugh."
-    },
-    {
-        word: "sunshine",
-        hint: "The warm and bright rays of the sun."
-    },
-    {
-        word: "fuzzy",
-        hint: "Soft and slightly fluffy to the touch."
-    },
-    {
-        word: "whisper",
-        hint: "To speak very softly or quietly, often in a secretive manner."
-    },
-    {
-        word: "playground",
-        hint: "An outdoor area with equipment for children to play on."
-    },
-    {
-        word: "lollipop",
-        hint: "A sweet candy on a stick, often brightly colored."
+        hint: "A tiny insect that glows in the dark.",
+        category: "animal"
     },
     {
         word: "giraffe",
-        hint: "A tall African mammal with a long neck."
+        hint: "A tall African mammal with a long neck.",
+        category: "animal"
     },
     {
-        word: "bubble",
-        hint: "A thin sphere of liquid enclosing air or gas."
+        word: "dolphin",
+        hint: "An intelligent marine mammal that lives in water.",
+        category: "animal"
     },
     {
-        word: "cartoon",
-        hint: "An animated film or TV show with funny characters."
+        word: "butterfly",
+        hint: "A colorful insect with four wings.",
+        category: "animal"
     },
     {
-        word: "puzzle",
-        hint: "A game or challenge to test your brain."
+        word: "elephant",
+        hint: "A large mammal with a trunk and big ears.",
+        category: "animal"
     },
     {
-        word: "smile",
-        hint: "A happy facial expression."
+        word: "lion",
+        hint: "A large carnivorous cat, king of the jungle.",
+        category: "animal"
     },
     {
-        word: "sprinkle",
-        hint: "Tiny bits of candy or decoration."
+        word: "rabbit",
+        hint: "A small furry animal with long ears.",
+        category: "animal"
     },
     {
-        word: "acorn",
-        hint: "The nut of an oak tree."
+        word: "eagle",
+        hint: "A large bird of prey with sharp talons.",
+        category: "animal"
     },
     {
-        word: "playful",
-        hint: "Full of fun and lively activity."
-    },
-    {
-        word: "giggle",
-        hint: "A light, happy laugh."
-    },
-    {
-        word: "sparkle",
-        hint: "Shining with small, bright flashes of light."
-    },
-    {
-        word: "snuggle",
-        hint: "To embrace closely for warmth or affection."
-    },
-    {
-        word: "laughter",
-        hint: "The joyful sound of amusement."
-    },
-    {
-        word: "campfire",
-        hint: "A warm, outdoor fire for cooking or gathering."
-    },
-    {
-        word: "pillow",
-        hint: "Soft and fluffy for resting your head."
-    },
-    {
-        word: "muffin",
-        hint: "A small, sweet bread often with fruit or nuts."
-    },
-    {
-        word: "giraffe",
-        hint: "A tall African mammal with a long neck."
-    },
-    {
-        word: "cartoon",
-        hint: "An animated film or TV show with funny characters."
-    },
-    {
-        word: "lollipop",
-        hint: "A sweet candy on a stick, often brightly colored."
-    },
-    {
-        word: "fuzzy",
-        hint: "Soft and slightly fluffy to the touch."
-    },
-    {
-        word: "whisper",
-        hint: "To speak very softly or quietly, often in a secretive manner."
-    },
-    {
-        word: "playground",
-        hint: "An outdoor area with equipment for children to play on."
-    },
-    {
-        word: "sparkle",
-        hint: "Shining with small, bright flashes of light."
-    },
-    {
-        word: "smile",
-        hint: "A happy facial expression."
-    },
-    {
-        word: "sprinkle",
-        hint: "Tiny bits of candy or decoration."
-    },
-    {
-        word: "acorn",
-        hint: "The nut of an oak tree."
-    },
+        word: "zebra",
+        hint: "A striped African horse-like animal.",
+        category: "animal"
+    }
 ];
