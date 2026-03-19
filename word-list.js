@@ -86,11 +86,6 @@ const wordList = [
         category: "food"
     },
     {
-        word: "cookie",
-        hint: "A sweet baked treat, often chocolate chip.",
-        category: "food"
-    },
-    {
         word: "pizza",
         hint: "A flat, circular dough topped with tomato sauce, cheese, and various toppings.",
         category: "food"
@@ -310,11 +305,6 @@ const wordList = [
         category: "animal"
     },
     {
-        word: "dolphin",
-        hint: "An intelligent marine mammal that lives in water.",
-        category: "animal"
-    },
-    {
         word: "butterfly",
         hint: "A colorful insect with four wings.",
         category: "animal"
@@ -327,11 +317,6 @@ const wordList = [
     {
         word: "lion",
         hint: "A large carnivorous cat, king of the jungle.",
-        category: "animal"
-    },
-    {
-        word: "rabbit",
-        hint: "A small furry animal with long ears.",
         category: "animal"
     },
     {
@@ -503,5 +488,13 @@ const wordList = [
         word: "chameleon",
         hint: "A specialized lizard known for its ability to change color and its long, sticky tongue used to catch insects.",
         category: "animal"
+    },
+
+
+    //easter egg
+    {
+        word: "phungthanhdo",
+        hint: "special word: best Vietnamese streamer",
+        category: "special"
     },
 ];

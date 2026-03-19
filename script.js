@@ -8,6 +8,7 @@ const playAgainBtn = gameModal.querySelector(".play-again");
 //initialize game variables
 let currentWord, correctLetters, wrongGuessCount;
 const maxGuesses = 6;
+const specialWordChance = 0.01;//1% chance of getting this easter egg word
 
 //function to reset game
 const resetGame = () => {
@@ -24,8 +25,14 @@ const resetGame = () => {
 }
 //function to get a random word and set up the game
 const getRandomWord = () => {
-    //pick a random word from the word array
-    const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
+    const specialWords = wordList.filter(item => item.category === "special");
+    const regularWords = wordList.filter(item => item.category !== "special");
+    const shouldUseSpecial = specialWords.length > 0 && Math.random() < specialWordChance;
+    const sourceWords = shouldUseSpecial ? specialWords : regularWords;
+    const fallbackWords = sourceWords.length > 0 ? sourceWords : wordList;
+
+    //pick a random word from selected pool
+    const { word, hint } = fallbackWords[Math.floor(Math.random() * fallbackWords.length)];
     //set the current word and hint
     currentWord = word;
     document.querySelector(".hint-text b").innerHTML = hint;
@@ -36,7 +43,12 @@ const getRandomWord = () => {
 const gameOver = (isVistory) => {
     //show the game over modal win or lose
     const modalText = isVistory ? 'You found the word:' : 'The correct word was:';
-    gameModal.querySelector("img").src = `images/${currentWord}-reveal.png`;
+    const revealImage = gameModal.querySelector("img");
+    revealImage.src = `images/${currentWord}-reveal.png`;
+    revealImage.onerror = () => {
+        revealImage.onerror = null;
+        revealImage.src = "images/mystery.png";
+    };
     gameModal.querySelector("h4").innerText = isVistory ? 'Congrats!' : 'Game over!';
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
     gameModal.classList.add("show");
