@@ -13,7 +13,7 @@ const maxGuesses = 6;
 const resetGame = () => {
     correctLetters = [];
     wrongGuessCount = 0;
-    hangmanImage.src = "images/mystery.svg";
+    hangmanImage.src = "images/mystery.png";
     guessesText.innerText = `${wrongGuessCount}/${maxGuesses}`;
     //create the empty letter slots
     wordDisplay.innerHTML = currentWord.split("").map(() => '<li class="letter"></li>').join("");
