@@ -9,6 +9,32 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="start-screen">
+        <div class="start-card">
+            <h2>Word-guess Game</h2>
+            <p>Click play, then choose category and mode.</p>
+            <button class="play-btn">Play</button>
+            <div class="category-selector hidden">
+                <button class="category-btn" data-category="food" aria-label="Choose food category">
+                    <img src="images/food-cate.png" alt="food category">
+                    <span>Food</span>
+                </button>
+                <button class="category-btn" data-category="sport" aria-label="Choose sports category">
+                    <img src="images/sports-cate.png" alt="sports category">
+                    <span>Sports</span>
+                </button>
+                <button class="category-btn" data-category="animal" aria-label="Choose animal category">
+                    <img src="images/animal-cate.png" alt="animal category">
+                    <span>Animal</span>
+                </button>
+            </div>
+            <div class="mode-selector hidden">
+                <button class="mode-btn" data-mode="easy">Easy</button>
+                <button class="mode-btn" data-mode="medium">Medium</button>
+                <button class="mode-btn" data-mode="hard">Hard</button>
+            </div>
+        </div>
+    </div>
     <div class="game-modal">
         <div class="content">
             <img src="#" alt="gif">
@@ -17,7 +43,7 @@
             <button class="play-again">Play Again</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container hidden">
         <div class="hangman-box">
             <img class="hangman-img" src="#" draggable="false" alt="hangman-img">
             <h1>Word-guess Game</h1>
@@ -25,6 +51,7 @@
         <div class="game-box">
             <ul class="word-display"></ul>
             <h4 class="hint-text">Hint: <b></b></h4>
+            <h4 class="mode-text">Mode: <b>-</b></h4>
             <div class="energy-wrap">
                 <h4 class="energy-text">Energy: <b>100%</b></h4>
                 <div class="energy-bar" aria-label="Energy bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">

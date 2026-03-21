@@ -4,15 +4,44 @@ const keyboardDiv = document.querySelector(".keyboard");
 const hangmanImage = document.querySelector(".hangman-img");
 const gameModal = document.querySelector(".game-modal");
 const playAgainBtn = gameModal.querySelector(".play-again");
+const startScreen = document.querySelector(".start-screen");
+const playBtn = document.querySelector(".play-btn");
+const categorySelector = document.querySelector(".category-selector");
+const categoryButtons = document.querySelectorAll(".category-btn");
+const modeSelector = document.querySelector(".mode-selector");
+const modeButtons = document.querySelectorAll(".mode-btn");
+const gameContainer = document.querySelector(".container");
+const modeText = document.querySelector(".mode-text b");
 const energyText = document.querySelector(".energy-text b");
 const energyBar = document.querySelector(".energy-bar");
 const energyFill = document.querySelector(".energy-fill");
 //initialize game variables
 let currentWord, correctLetters;
-const specialWordChance = 0.01;//1% chance of getting this easter egg word
+const specialWordChance = 0.05;//5% chance of getting this easter egg word
 const maxEnergy = 100;
-const energyLossPerWrongGuess = 10;
+let energyLossPerWrongGuess = 10;
 let currentEnergy = maxEnergy;
+let selectedMode = null;
+let selectedCategory = null;
+let nextAction = "next-word";
+
+const gameModes = {
+    easy: {
+        label: "Easy",
+        energyLoss: 10,
+        isMatch: (word) => word.length < 5,
+    },
+    medium: {
+        label: "Medium",
+        energyLoss: 20,
+        isMatch: (word) => word.length >= 5 && word.length <= 7,
+    },
+    hard: {
+        label: "Hard",
+        energyLoss: 25,
+        isMatch: (word) => word.length >= 8,
+    },
+};
 
 const updateEnergyUI = () => {
     const safeEnergy = Math.max(0, Math.min(maxEnergy, currentEnergy));
@@ -21,6 +50,32 @@ const updateEnergyUI = () => {
     energyFill.style.width = `${safeEnergy}%`;
     energyFill.classList.toggle("medium", safeEnergy <= 60 && safeEnergy > 30);
     energyFill.classList.toggle("low", safeEnergy <= 30);
+}
+
+//mode selection with 3 mode words if it fulfill the condition which is at line 28
+const getWordsForMode = (words) => {
+    if (!selectedMode || !gameModes[selectedMode]) return words;
+    const filteredWords = words.filter(item => gameModes[selectedMode].isMatch(item.word));
+    return filteredWords.length > 0 ? filteredWords : words;
+}
+
+//choosing words from category in word-list.js
+const getWordsForCategory = (words) => {
+    if (!selectedCategory) return words;
+    const filteredWords = words.filter(item => item.category === selectedCategory);
+    return filteredWords.length > 0 ? filteredWords : words;
+}
+
+const backToModeSelection = () => {
+    selectedMode = null;
+    currentEnergy = maxEnergy;
+    updateEnergyUI();
+    gameModal.classList.remove("show");
+    gameContainer.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+    categorySelector.classList.add("hidden");
+    modeSelector.classList.remove("hidden");
+    playBtn.classList.add("hidden");
 }
 
 //function to reset game
@@ -37,7 +92,9 @@ const resetGame = () => {
 //function to get a random word and set up the game
 const getRandomWord = () => {
     const specialWords = wordList.filter(item => item.category === "special");
-    const regularWords = wordList.filter(item => item.category !== "special");
+    const regularWords = getWordsForMode(
+        getWordsForCategory(wordList.filter(item => item.category !== "special"))
+    );
     const shouldUseSpecial = specialWords.length > 0 && Math.random() < specialWordChance;
     const sourceWords = shouldUseSpecial ? specialWords : regularWords;
     const fallbackWords = sourceWords.length > 0 ? sourceWords : wordList;
@@ -62,7 +119,19 @@ const gameOver = (isVistory) => {
     };
     gameModal.querySelector("h4").innerText = isVistory ? 'Congrats!' : 'Game over!';
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
+    nextAction = isVistory ? "next-word" : "mode-selection";
+    playAgainBtn.innerText = isVistory ? "Go to next word" : "Play again";
     gameModal.classList.add("show");
+}
+
+const startGameWithMode = (mode) => {
+    if (!gameModes[mode]) return;
+    selectedMode = mode;
+    energyLossPerWrongGuess = gameModes[mode].energyLoss;
+    modeText.innerText = `${gameModes[mode].label} (-${energyLossPerWrongGuess} energy/wrong guess)`;
+    startScreen.classList.add("hidden");
+    gameContainer.classList.remove("hidden");
+    getRandomWord();
 }
 //creating a for loop to display the keyboard
 for (let i = 97; i <= 122; i++) {
@@ -96,11 +165,37 @@ const initGame =(button,clickedLetter)=>{
     if (currentEnergy === 0) return gameOver(false);
     if (correctLetters.length ===currentWord.length) return gameOver(true);
 }
-//starting the game with a random word
+//starting UI and game flow
 updateEnergyUI();
-getRandomWord();
+playBtn.addEventListener("click", () => {
+    categorySelector.classList.remove("hidden");
+    modeSelector.classList.add("hidden");
+    playBtn.classList.add("hidden");
+});
+
+categoryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        selectedCategory = button.dataset.category;
+        categorySelector.classList.add("hidden");
+        modeSelector.classList.remove("hidden");
+    });
+});
+
+modeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        startGameWithMode(button.dataset.mode);
+    });
+});
 
 
 //add event listerner for the play again button
-playAgainBtn.addEventListener("click", getRandomWord);
+playAgainBtn.addEventListener("click", () => {
+    if (nextAction === "mode-selection") {
+        backToModeSelection();
+        return;
+    }
+    if (!selectedMode) return;
+    getRandomWord();
+});
+
 

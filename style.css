@@ -14,6 +14,97 @@ body {
     min-height: 100vh;
     background: #fc26ca;
 }
+.hidden {
+    display: none !important;
+}
+.start-screen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.start-card {
+    width: min(460px, 100%);
+    background: #fff;
+    border-radius: 12px;
+    padding: 34px 26px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.start-card h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+.start-card p {
+    color: #444;
+    margin-bottom: 20px;
+}
+.play-btn,
+.mode-btn {
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    text-transform: uppercase;
+    background: #5eba72;
+    transition: background 0.2s ease;
+}
+.play-btn {
+    padding: 12px 24px;
+}
+.mode-selector {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.category-selector {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.category-btn {
+    border: 2px solid #e9ecef;
+    background: #fff;
+    border-radius: 10px;
+    width: 116px;
+    padding: 10px 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.category-btn img {
+    width: 100%;
+    max-width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+.category-btn span {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+}
+.category-btn:hover {
+    border-color: #5eba72;
+    transform: translateY(-2px);
+}
+.mode-btn {
+    min-width: 110px;
+    padding: 10px 14px;
+}
+.play-btn:hover,
+.mode-btn:hover {
+    background: #8df3a3;
+}
 .container {
     display: flex;
     width: 850px;
@@ -182,6 +273,19 @@ body {
         flex-direction: column;
         padding: 30px 15px;
         align-items: center;
+    }
+    .start-card {
+        padding: 24px 18px;
+    }
+    .start-card h2 {
+        font-size: 1.65rem;
+    }
+    .category-btn {
+        width: 96px;
+    }
+    .category-btn img {
+        max-width: 64px;
+        height: 64px;
     }
     .hangman-box img {
         max-width: 200px;
