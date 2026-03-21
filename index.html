@@ -19,7 +19,20 @@
             <button class="back-btn hidden" aria-label="Go back"><i class="fa-solid fa-arrow-left"></i></button>
             <h2>Word-guess Game</h2>
             <p>choose play to start the game, preview to see all the words can be appear in game</p>
-            <button class="play-btn">Play</button>
+            <div class="menu-actions">
+                <button class="play-btn">Play</button>
+                <button class="preview-btn">Preview Words</button>
+            </div>
+            <div class="preview-panel hidden">
+                <div class="preview-media">
+                    <img class="preview-image" src="#" alt="preview word image">
+                </div>
+                <p class="preview-word">-</p>
+                <div class="preview-controls">
+                    <button class="preview-arrow-btn preview-prev" aria-label="Previous word"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="preview-arrow-btn preview-next" aria-label="Next word"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
             <div class="category-selector hidden">
                 <button class="category-btn" data-category="food" aria-label="Choose food category">
                     <img src="images/food-cate.png" alt="food category">
@@ -62,6 +75,12 @@
             <ul class="word-display"></ul>
             <h4 class="hint-text">Hint: <b></b></h4>
             <h4 class="mode-text">Mode: <b>-</b></h4>
+            <div class="hint-actions">
+                <button class="hint-btn" type="button" aria-label="Use hint to reveal one character">
+                    <i class="fa-regular fa-lightbulb"></i>
+                    <span>Hint (<b class="hint-count">0</b>)</span>
+                </button>
+            </div>
             <div class="energy-wrap">
                 <h4 class="energy-text">Energy: <b>100%</b></h4>
                 <div class="energy-bar" aria-label="Energy bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
