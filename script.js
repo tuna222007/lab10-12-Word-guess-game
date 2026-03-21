@@ -4,8 +4,11 @@ const keyboardDiv = document.querySelector(".keyboard");
 const hangmanImage = document.querySelector(".hangman-img");
 const gameModal = document.querySelector(".game-modal");
 const playAgainBtn = gameModal.querySelector(".play-again");
+const secondaryActionBtn = gameModal.querySelector(".secondary-action");
+const inGameBackBtn = document.querySelector(".in-game-back-btn");
 const startScreen = document.querySelector(".start-screen");
 const playBtn = document.querySelector(".play-btn");
+const backBtn = document.querySelector(".back-btn");
 const categorySelector = document.querySelector(".category-selector");
 const categoryButtons = document.querySelectorAll(".category-btn");
 const modeSelector = document.querySelector(".mode-selector");
@@ -17,13 +20,18 @@ const energyBar = document.querySelector(".energy-bar");
 const energyFill = document.querySelector(".energy-fill");
 //initialize game variables
 let currentWord, correctLetters;
-const specialWordChance = 0.05;//5% chance of getting this easter egg word
+const specialWordChance = 0.01;//1% chance of getting this easter egg word
 const maxEnergy = 100;
+const targetSolvedWords = 10;
 let energyLossPerWrongGuess = 10;
 let currentEnergy = maxEnergy;
 let selectedMode = null;
 let selectedCategory = null;
 let nextAction = "next-word";
+let nextSecondaryAction = null;
+let solvedWordsInRun = 0;
+const usedWordsBySession = new Map();
+const usedSpecialWords = new Set();
 
 const gameModes = {
     easy: {
@@ -66,8 +74,54 @@ const getWordsForCategory = (words) => {
     return filteredWords.length > 0 ? filteredWords : words;
 }
 
+const getSessionKey = () => `${selectedCategory || "all"}|${selectedMode || "none"}`;
+
+const getUsedWordsForCurrentSession = () => {
+    const key = getSessionKey();
+    if (!usedWordsBySession.has(key)) {
+        usedWordsBySession.set(key, new Set());
+    }
+    return usedWordsBySession.get(key);
+}
+
+const resetCurrentSessionProgress = () => {
+    usedWordsBySession.set(getSessionKey(), new Set());
+    usedSpecialWords.clear();
+}
+
+const setModalActions = (primaryLabel, primaryAction, secondaryLabel = null, secondaryAction = null) => {
+    playAgainBtn.innerText = primaryLabel;
+    nextAction = primaryAction;
+
+    if (secondaryLabel && secondaryAction) {
+        secondaryActionBtn.innerText = secondaryLabel;
+        nextSecondaryAction = secondaryAction;
+        secondaryActionBtn.classList.remove("hidden");
+        return;
+    }
+
+    nextSecondaryAction = null;
+    secondaryActionBtn.classList.add("hidden");
+}
+
+const backToMainMenu = () => {
+    selectedMode = null;
+    selectedCategory = null;
+    solvedWordsInRun = 0;
+    currentEnergy = maxEnergy;
+    updateEnergyUI();
+    gameModal.classList.remove("show");
+    gameContainer.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+    categorySelector.classList.add("hidden");
+    modeSelector.classList.add("hidden");
+    playBtn.classList.remove("hidden");
+    backBtn.classList.add("hidden");
+}
+
 const backToModeSelection = () => {
     selectedMode = null;
+    solvedWordsInRun = 0;
     currentEnergy = maxEnergy;
     updateEnergyUI();
     gameModal.classList.remove("show");
@@ -76,6 +130,21 @@ const backToModeSelection = () => {
     categorySelector.classList.add("hidden");
     modeSelector.classList.remove("hidden");
     playBtn.classList.add("hidden");
+    backBtn.classList.remove("hidden");
+}
+
+//finish 10 words = victory
+const showTenWordsVictory = () => {
+    const revealImage = gameModal.querySelector("img");
+    revealImage.src = "images/all-clear.png";
+    revealImage.onerror = () => {
+        revealImage.onerror = null;
+        revealImage.src = "images/mystery.png";
+    };
+    gameModal.querySelector("h4").innerText = "Ultimate Victory!";
+    gameModal.querySelector("p").innerHTML = `You solved <b>${targetSolvedWords}</b> words.`;
+    setModalActions("Back to menu", "main-menu", "Choose another mode", "mode-selection");
+    gameModal.classList.add("show");
 }
 
 //function to reset game
@@ -95,12 +164,27 @@ const getRandomWord = () => {
     const regularWords = getWordsForMode(
         getWordsForCategory(wordList.filter(item => item.category !== "special"))
     );
-    const shouldUseSpecial = specialWords.length > 0 && Math.random() < specialWordChance;
-    const sourceWords = shouldUseSpecial ? specialWords : regularWords;
-    const fallbackWords = sourceWords.length > 0 ? sourceWords : wordList;
+    const usedRegularWords = getUsedWordsForCurrentSession();
+    const availableRegularWords = regularWords.filter(item => !usedRegularWords.has(item.word));
+
+    if (availableRegularWords.length === 0) {
+        showAllWordsCompleted();
+        return;
+    }
+
+    const availableSpecialWords = specialWords.filter(item => !usedSpecialWords.has(item.word));
+    const shouldUseSpecial = availableSpecialWords.length > 0 && Math.random() < specialWordChance;
+    const sourceWords = shouldUseSpecial ? availableSpecialWords : availableRegularWords;
 
     //pick a random word from selected pool
-    const { word, hint } = fallbackWords[Math.floor(Math.random() * fallbackWords.length)];
+    const { word, hint } = sourceWords[Math.floor(Math.random() * sourceWords.length)];
+
+    if (shouldUseSpecial) {
+        usedSpecialWords.add(word);
+    } else {
+        usedRegularWords.add(word);
+    }
+
     //set the current word and hint
     currentWord = word;
     document.querySelector(".hint-text b").innerHTML = hint;
@@ -110,6 +194,13 @@ const getRandomWord = () => {
 //function to handle the end of the game
 const gameOver = (isVistory) => {
     //show the game over modal win or lose
+    if (isVistory) {
+        solvedWordsInRun++;
+        if (solvedWordsInRun >= targetSolvedWords) {
+            showTenWordsVictory();
+            return;
+        }
+    }
     const modalText = isVistory ? 'You found the word:' : 'The correct word was:';
     const revealImage = gameModal.querySelector("img");
     revealImage.src = `images/${currentWord}-reveal.png`;
@@ -119,14 +210,19 @@ const gameOver = (isVistory) => {
     };
     gameModal.querySelector("h4").innerText = isVistory ? 'Congrats!' : 'Game over!';
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
-    nextAction = isVistory ? "next-word" : "mode-selection";
-    playAgainBtn.innerText = isVistory ? "Go to next word" : "Play again";
+    if (isVistory) {
+        setModalActions("Go to next word", "next-word");
+    } else {
+        setModalActions("Play again", "mode-selection");
+    }
     gameModal.classList.add("show");
 }
 
 const startGameWithMode = (mode) => {
     if (!gameModes[mode]) return;
     selectedMode = mode;
+    solvedWordsInRun = 0;
+    resetCurrentSessionProgress();
     energyLossPerWrongGuess = gameModes[mode].energyLoss;
     modeText.innerText = `${gameModes[mode].label} (-${energyLossPerWrongGuess} energy/wrong guess)`;
     startScreen.classList.add("hidden");
@@ -171,6 +267,7 @@ playBtn.addEventListener("click", () => {
     categorySelector.classList.remove("hidden");
     modeSelector.classList.add("hidden");
     playBtn.classList.add("hidden");
+    backBtn.classList.remove("hidden");
 });
 
 categoryButtons.forEach((button) => {
@@ -178,7 +275,22 @@ categoryButtons.forEach((button) => {
         selectedCategory = button.dataset.category;
         categorySelector.classList.add("hidden");
         modeSelector.classList.remove("hidden");
+        backBtn.classList.remove("hidden");
     });
+});
+
+backBtn.addEventListener("click", () => {
+    if (!modeSelector.classList.contains("hidden")) {
+        modeSelector.classList.add("hidden");
+        categorySelector.classList.remove("hidden");
+        return;
+    }
+
+    if (!categorySelector.classList.contains("hidden")) {
+        categorySelector.classList.add("hidden");
+        playBtn.classList.remove("hidden");
+        backBtn.classList.add("hidden");
+    }
 });
 
 modeButtons.forEach((button) => {
@@ -190,12 +302,26 @@ modeButtons.forEach((button) => {
 
 //add event listerner for the play again button
 playAgainBtn.addEventListener("click", () => {
+    if (nextAction === "main-menu") {
+        backToMainMenu();
+        return;
+    }
     if (nextAction === "mode-selection") {
         backToModeSelection();
         return;
     }
     if (!selectedMode) return;
     getRandomWord();
+});
+
+secondaryActionBtn.addEventListener("click", () => {
+    if (nextSecondaryAction === "mode-selection") {
+        backToModeSelection();
+    }
+});
+
+inGameBackBtn.addEventListener("click", () => {
+    backToModeSelection();
 });
 
 

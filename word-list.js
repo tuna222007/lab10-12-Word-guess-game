@@ -175,6 +175,61 @@ const wordList = [
         hint: "A large tropical fruit with a tough, spiky outer shell and sweet, yellow flesh inside.",
         category: "food"
     },
+    {
+        word: "rice",
+        hint: "Small white or brown grains that are a staple food for much of the world's population.",
+        category: "food"
+    },
+    {
+        word: "corn",
+        hint: "A tall cereal plant that produces yellow kernels on a large cob.",
+        category: "food"
+    },
+    {
+        word: "taco",
+        hint: "A Mexican dish consisting of a folded or rolled tortilla filled with various mixtures.",
+        category: "food"
+    },
+    {
+        word: "pear",
+        hint: "A sweet, yellowish-green fruit that is narrow at the top and wider at the bottom.",
+        category: "food"
+    },
+    {
+        word: "soup",
+        hint: "A liquid dish, typically made by boiling meat, fish, or vegetables in stock or water.",
+        category: "food"
+    },
+    {
+        word: "beef",
+        hint: "The meat that comes from a cow or bull, often used for steaks or roasts.",
+        category: "food"
+    },
+    {
+        word: "bread",
+        hint: "A staple food made from flour, water, and yeast, usually baked into a loaf.",
+        category: "food"
+    },
+    {
+        word: "mango",
+        hint: "A sweet, tropical stone fruit with a smooth skin and juicy orange flesh.",
+        category: "food"
+    },
+    {
+        word: "steak",
+        hint: "A high-quality slice of meat, typically beef, usually cooked by grilling or frying.",
+        category: "food"
+    },
+    {
+        word: "melon",
+        hint: "A large, round fruit with a hard skin and sweet, watery flesh like cantaloupe.",
+        category: "food"
+    },
+    {
+        word: "garlic",
+        hint: "A pungent bulb used as a seasoning in cooking, known for its strong aroma and flavor.",
+        category: "food"
+    },
 
     // SPORT
     {
@@ -285,6 +340,106 @@ const wordList = [
     {
         word: "snowboarding",
         hint: "A winter sport that involves descending a snow-covered slope on a single board attached to the rider's feet.",
+        category: "sport"
+    },
+    {
+        word: "polo",
+        hint: "A team sport played on horseback where players use long-handled mallets to hit a ball.",
+        category: "sport"
+    },
+    {
+        word: "luge",
+        hint: "A winter sport where a person or team of two slides down an ice track on a small sled.",
+        category: "sport"
+    },
+    {
+        word: "sumo",
+        hint: "A Japanese form of heavyweight wrestling where contestants try to push each other out of a ring.",
+        category: "sport"
+    },
+    {
+        word: "yoga",
+        hint: "A physical, mental, and spiritual practice that involves poses, breathing, and meditation.",
+        category: "sport"
+    },
+    {
+        word: "pool",
+        hint: "A cue sport played on a table with six pockets using a cue stick and 16 balls.",
+        category: "sport"
+    },
+    {
+        word: "dart",
+        hint: "A game in which small, pointed missiles are thrown at a circular board on a wall.",
+        category: "sport"
+    },
+    {
+        word: "race",
+        hint: "A competition between runners, vehicles, or animals to see which is the fastest.",
+        category: "sport"
+    },
+    {
+        word: "bowl",
+        hint: "A sport in which players roll a heavy ball toward pins or a target.",
+        category: "sport"
+    },
+    {
+        word: "dive",
+        hint: "The sport of jumping or falling into water from a platform or springboard.",
+        category: "sport"
+    },
+    {
+        word: "hike",
+        hint: "The activity of going for long, vigorous walks in the countryside or mountains.",
+        category: "sport"
+    },
+    {
+        word: "sail",
+        hint: "The sport of using wind power to propel a boat across a body of water.",
+        category: "sport"
+    },
+    {
+        word: "karate",
+        hint: "A martial art developed in Japan that uses striking techniques like punching, kicking, and knee strikes.",
+        category: "sport"
+    },
+    {
+        word: "squash",
+        hint: "A racket sport played by two or four players in a four-walled court with a small, hollow rubber ball.",
+        category: "sport"
+    },
+    {
+        word: "archery",
+        hint: "The sport or skill of using a bow to shoot arrows at a target.",
+        category: "sport"
+    },
+    {
+        word: "cricket",
+        hint: "A bat-and-ball game played between two teams of eleven players on a field with a central pitch.",
+        category: "sport"
+    },
+    {
+        word: "bowling",
+        hint: "A target sport where players roll a heavy ball down a lane to knock over pins",
+        category: "sport"
+    },
+    {
+        word: "rowing",
+        hint: "sport that involves propelling a boat on water using oars.",
+        category: "sport"
+    },
+    {
+        word: "taekwondo",
+        hint: "A Korean martial art involving punching and kicking techniques, with a focus on head-height kicks and spinning jump kicks.",
+        category: "sport"
+    },
+    {
+        word: "waterpolo",
+        hint: "A competitive team sport played in water between two teams of seven players, who try to throw a ball into the opponent's goal.",
+        category: "sport"
+    },
+    {
+        word: "pickleball",
+        hint: "A paddle sport that combines elements of tennis, badminton, and ping-pong, played on a smaller court with a perforated plastic ball.",
         category: "sport"
     },
 
@@ -487,6 +642,21 @@ const wordList = [
     {
         word: "chameleon",
         hint: "A specialized lizard known for its ability to change color and its long, sticky tongue used to catch insects.",
+        category: "animal"
+    },
+    {
+        word: "salamander",
+        hint: "A group of amphibians that typically have a lizard-like appearance, with slender bodies, blunt snouts, and short limbs.",
+        category: "animal"
+    },
+    {
+        word: "wolverine",
+        hint: "A powerful, stocky carnivore of the weasel family, known for its strength and ferocity despite its relatively small size.",
+        category: "animal"
+    },
+    {
+        word: "chinchilla",
+        hint: "A small, soft-furred rodent native to the Andes mountains, often kept as a pet and known for its incredibly dense coat.",
         category: "animal"
     },
 
