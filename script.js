@@ -1,21 +1,32 @@
 //select element from the page
 const wordDisplay = document.querySelector(".word-display");
-const guessesText = document.querySelector(".guesses-text b");
 const keyboardDiv = document.querySelector(".keyboard");
 const hangmanImage = document.querySelector(".hangman-img");
 const gameModal = document.querySelector(".game-modal");
 const playAgainBtn = gameModal.querySelector(".play-again");
+const energyText = document.querySelector(".energy-text b");
+const energyBar = document.querySelector(".energy-bar");
+const energyFill = document.querySelector(".energy-fill");
 //initialize game variables
-let currentWord, correctLetters, wrongGuessCount;
-const maxGuesses = 6;
+let currentWord, correctLetters;
 const specialWordChance = 0.01;//1% chance of getting this easter egg word
+const maxEnergy = 100;
+const energyLossPerWrongGuess = 10;
+let currentEnergy = maxEnergy;
+
+const updateEnergyUI = () => {
+    const safeEnergy = Math.max(0, Math.min(maxEnergy, currentEnergy));
+    energyText.innerText = `${safeEnergy}%`;
+    energyBar.setAttribute("aria-valuenow", String(safeEnergy));
+    energyFill.style.width = `${safeEnergy}%`;
+    energyFill.classList.toggle("medium", safeEnergy <= 60 && safeEnergy > 30);
+    energyFill.classList.toggle("low", safeEnergy <= 30);
+}
 
 //function to reset game
 const resetGame = () => {
     correctLetters = [];
-    wrongGuessCount = 0;
     hangmanImage.src = "images/mystery.png";
-    guessesText.innerText = `${wrongGuessCount}/${maxGuesses}`;
     //create the empty letter slots
     wordDisplay.innerHTML = currentWord.split("").map(() => '<li class="letter"></li>').join("");
     //enable keyboard buttons
@@ -75,18 +86,18 @@ const initGame =(button,clickedLetter)=>{
         });
     }
     else{
-        //update wrong guess count and hangman image if the letter is incorrect
-        wrongGuessCount++;
+        //reduce energy when the letter is incorrect
+        currentEnergy = Math.max(0, currentEnergy - energyLossPerWrongGuess);
+        updateEnergyUI();
     }
     //disable the clicked button->it can be clicked only once
     button.disabled= true;
-    //update the display guess count
-    guessesText.innerText=`${wrongGuessCount}/${maxGuesses}`;
     //check if the game should end base on win or lose conditions
-    if (wrongGuessCount=== maxGuesses) return gameOver(false);
+    if (currentEnergy === 0) return gameOver(false);
     if (correctLetters.length ===currentWord.length) return gameOver(true);
 }
 //starting the game with a random word
+updateEnergyUI();
 getRandomWord();
 
 
