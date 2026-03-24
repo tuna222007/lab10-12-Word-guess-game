@@ -1,18 +1,61 @@
-/* Importing Google font - Open Sans */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+/* Importing modern Google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap");
+:root {
+    --bg-start: #0ea5e9;
+    --bg-end: #1d4ed8;
+    --surface: #ffffff;
+    --surface-soft: #f8fbff;
+    --text-main: #0f172a;
+    --text-soft: #475569;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #06b6d4;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --ring: rgba(37, 99, 235, 0.18);
+    --card-shadow: 0 20px 45px rgba(15, 23, 42, 0.24);
+    --font-body: "Plus Jakarta Sans", sans-serif;
+    --font-title: "Sora", sans-serif;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Open Sans", sans-serif;
+    font-family: var(--font-body);
 }
 body {
+    position: relative;
+    isolation: isolate;
     display: flex;
     padding: 0 10px;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #40E0D0;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 20%, #38bdf8 0%, var(--bg-start) 36%, var(--bg-end) 100%);
+}
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(4px);
+}
+body::before {
+    width: 360px;
+    height: 360px;
+    top: -120px;
+    right: -70px;
+    background: rgba(34, 211, 238, 0.32);
+}
+body::after {
+    width: 300px;
+    height: 300px;
+    bottom: -110px;
+    left: -80px;
+    background: rgba(59, 130, 246, 0.28);
 }
 .hidden {
     display: none !important;
@@ -25,11 +68,13 @@ body {
 .start-card {
     position: relative;
     width: min(680px, 100%);
-    background: #fff;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 20px;
     padding: 56px 42px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
 }
 .back-btn {
     position: absolute;
@@ -39,22 +84,24 @@ body {
     height: 38px;
     border: none;
     border-radius: 50%;
-    background: #f1f3f5;
-    color: #333;
+    background: #e2e8f0;
+    color: var(--text-main);
     cursor: pointer;
     font-size: 1rem;
     transition: background 0.2s ease, color 0.2s ease;
 }
 .back-btn:hover {
-    background: #5eba72;
+    background: var(--primary);
     color: #fff;
 }
 .start-card h2 {
+    font-family: var(--font-title);
     font-size: 2.55rem;
+    color: var(--text-main);
     margin-bottom: 8px;
 }
 .start-card p {
-    color: #444;
+    color: var(--text-soft);
     margin-bottom: 28px;
     font-size: 1.18rem;
 }
@@ -67,10 +114,12 @@ body {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    background: #5eba72;
-    transition: background 0.2s ease;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    box-shadow: 0 10px 20px var(--ring);
+    transition: transform 0.18s ease, filter 0.18s ease;
 }
 .play-btn {
     padding: 12px 24px;
@@ -86,12 +135,13 @@ body {
 }
 .preview-panel {
     margin-top: 18px;
-    border: 2px solid #f1f3f5;
-    border-radius: 12px;
-    padding: 16px;
+    background: var(--surface-soft);
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    padding: 18px;
 }
 .preview-media {
-    min-height: 190px;
+    min-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,9 +155,9 @@ body {
 .preview-word {
     margin: 8px 0 14px;
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    color: #333;
+    color: var(--text-main);
 }
 .preview-controls {
     display: flex;
@@ -116,16 +166,18 @@ body {
 }
 .preview-arrow-btn {
     border: none;
-    background: #5eba72;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
     color: #fff;
     width: 42px;
     height: 42px;
     border-radius: 999px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    box-shadow: 0 10px 18px var(--ring);
+    transition: transform 0.18s ease, filter 0.18s ease;
 }
 .preview-arrow-btn:hover {
-    background: #8df3a3;
+    transform: translateY(-1px);
+    filter: brightness(1.06);
 }
 .preview-arrow-btn:disabled {
     opacity: 0.55;
@@ -146,9 +198,9 @@ body {
     flex-wrap: wrap;
 }
 .category-btn {
-    border: 2px solid #e9ecef;
-    background: #fff;
-    border-radius: 10px;
+    border: 1px solid #dbeafe;
+    background: linear-gradient(160deg, #ffffff 0%, #f0f9ff 100%);
+    border-radius: 14px;
     width: 116px;
     padding: 10px 8px;
     cursor: pointer;
@@ -156,7 +208,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.08);
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .category-btn img {
     width: 100%;
@@ -167,11 +220,12 @@ body {
 .category-btn span {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #333;
+    color: var(--text-main);
     text-transform: uppercase;
 }
 .category-btn:hover {
-    border-color: #5eba72;
+    border-color: var(--primary);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.16);
     transform: translateY(-2px);
 }
 .mode-btn {
@@ -181,7 +235,8 @@ body {
 .play-btn:hover,
 .preview-btn:hover,
 .mode-btn:hover {
-    background: #8df3a3;
+    transform: translateY(-1px);
+    filter: brightness(1.07);
 }
 .container {
     position: relative;
@@ -189,11 +244,13 @@ body {
     width: 920px;
     gap: 70px;
     padding: 58px 40px;
-    background: #fff;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 20px;
     align-items: flex-end;
     justify-content: space-between;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
 }
 .in-game-back-btn {
     position: absolute;
@@ -203,14 +260,14 @@ body {
     height: 38px;
     border: none;
     border-radius: 50%;
-    background: #f1f3f5;
-    color: #333;
+    background: #e2e8f0;
+    color: var(--text-main);
     cursor: pointer;
     font-size: 1rem;
     transition: background 0.2s ease, color 0.2s ease;
 }
 .in-game-back-btn:hover {
-    background: #5eba72;
+    background: var(--primary);
     color: #fff;
 }
 .hangman-box img {
@@ -218,10 +275,19 @@ body {
     max-width: 270px;
 }
 .hangman-box h1 {
+    font-family: var(--font-title);
     font-size: 1.45rem;
     text-align: center;
     margin-top: 20px;
     text-transform: uppercase;
+    color: var(--text-main);
+}
+.game-box {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    padding: 35px 16px 14px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 .game-box .word-display {
     gap: 10px;
@@ -238,7 +304,8 @@ body {
     font-weight: 600;
     margin-bottom: 40px;
     text-transform: uppercase;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid #1d4ed8;
+    color: var(--text-main);
 }
 .word-display .letter.guessed {
     margin: -40px 0 35px;
@@ -249,9 +316,11 @@ body {
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 15px;
+    color: var(--text-soft);
 }
 .game-box h4 b {
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--text-main);
 }
 .hint-actions {
     display: flex;
@@ -260,8 +329,8 @@ body {
 }
 .hint-btn {
     border: none;
-    background: #ffb703;
-    color: #222;
+    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    color: #fff;
     border-radius: 999px;
     padding: 10px 16px;
     cursor: pointer;
@@ -269,10 +338,11 @@ body {
     align-items: center;
     gap: 8px;
     font-weight: 700;
-    transition: transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.22);
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 .hint-btn:hover {
-    background: #ffd166;
+    filter: brightness(1.06);
     transform: translateY(-1px);
 }
 .hint-btn:disabled {
@@ -288,27 +358,27 @@ body {
     margin-bottom: 8px;
 }
 .game-box .energy-text b {
-    color: #1b8a3f;
+    color: var(--success);
 }
 .game-box .energy-bar {
     width: 100%;
     height: 14px;
     border-radius: 999px;
-    background: #e9ecef;
+    background: #dbeafe;
     overflow: hidden;
 }
 .game-box .energy-fill {
     width: 100%;
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, #1fb856 0%, #a8e063 100%);
+    background: linear-gradient(90deg, #22c55e 0%, #86efac 100%);
     transition: width 0.25s ease, background 0.25s ease;
 }
 .game-box .energy-fill.medium {
-    background: linear-gradient(90deg, #f3a100 0%, #ffd76a 100%);
+    background: linear-gradient(90deg, #f59e0b 0%, #fcd34d 100%);
 }
 .game-box .energy-fill.low {
-    background: linear-gradient(90deg, #e53935 0%, #ff8a80 100%);
+    background: linear-gradient(90deg, #ef4444 0%, #fca5a5 100%);
 }
 .game-box .keyboard {
     display: flex;
@@ -324,20 +394,22 @@ body {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 4px;
+    border-radius: 8px;
     text-transform: uppercase;
-    background: #5eba72;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
 }
 .keyboard button {
-    padding: 7px;
+    padding: 8px;
+    font-size: 0.95rem;
     width: calc(100% / 9 - 5px);
+    box-shadow: 0 8px 14px rgba(37, 99, 235, 0.16);
 }
 .keyboard button[disabled] {
     pointer-events: none;
     opacity: 0.6;
 }
 :where(.game-modal, .keyboard) button:hover {
-    background: #8df3a3;
+    filter: brightness(1.08);
 }
 .game-modal {
     position: fixed;
@@ -347,7 +419,7 @@ body {
     height: 100%;
     opacity: 0;
     pointer-events: none;
-    background: rgba(0,0,0,0.6);
+    background: rgba(15, 23, 42, 0.55);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -364,10 +436,11 @@ body {
     padding: 34px;
     max-width: 500px;
     width: 100%;
-    border-radius: 10px;
-    background: #fff;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.85);
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
 }
 .game-modal img {
     max-width: 300px;
@@ -385,7 +458,7 @@ body {
     font-weight: 500;
 }
 .game-modal p b {
-    color: #5eba72;
+    color: var(--primary);
     font-weight: 600;
 }
 .game-modal button {
@@ -406,6 +479,7 @@ body {
     }
     .start-card {
         padding: 24px 18px;
+        border-radius: 16px;
     }
     .menu-actions {
         flex-direction: column;
@@ -417,6 +491,12 @@ body {
     }
     .start-card h2 {
         font-size: 1.65rem;
+    }
+    .preview-media {
+        min-height: 180px;
+    }
+    .preview-image {
+        max-height: 220px;
     }
     .category-btn {
         width: 96px;
@@ -433,6 +513,9 @@ body {
     }
     .game-box h4 {
         font-size: 1rem;
+    }
+    .game-box {
+        width: 100%;
     }
     .game-box .energy-wrap {
         max-width: 280px;
